@@ -26,7 +26,7 @@ const Header = () => {
   return (
     <Container className="flex a-center j-between">
       <div className="logo">
-        <img src={logo} alt="Logo" onClick={() => navigate("/")} />
+        <img src={logo} alt="Logo" onClick={() => navigate("/netflix")} />
       </div>
       <button onClick={() => navigate("/login")}>Login</button>
     </Container>

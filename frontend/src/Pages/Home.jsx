@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
 import Image from "../Assets/home.jpg";
 import MovieLogo from "../Assets/homeTitle.webp";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies, getGenres } from "../Store/store";
 
 const Container = styled.div`
   background-color: black;
@@ -57,7 +60,20 @@ const Container = styled.div`
 `;
 const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { genresLoaded, movies } = useSelector((state) => state.netflix);
 
+  console.log(movies);
+
+  console.log(genresLoaded);
+  useEffect(() => {
+    dispatch(getGenres());
+  }, []);
+
+  useEffect(() => {
+    if (genresLoaded) dispatch(fetchMovies({ type: "all" }));
+  }, [genresLoaded]);
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => (window.onscroll = null);
@@ -72,7 +88,10 @@ const Home = () => {
             <img src={MovieLogo} alt="Logo" />
           </div>
           <div className="buttons flex">
-            <button className="flex a-center j-center">
+            <button
+              className="flex a-center j-center"
+              onClick={() => navigate("/player")}
+            >
               <FaPlay /> Play
             </button>
             <button className="flex a-center j-center">

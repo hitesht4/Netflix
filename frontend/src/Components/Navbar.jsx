@@ -102,7 +102,7 @@ const Links = [
 const Navbar = ({ isScrolled }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
-  console.log(showSearch);
+
   return (
     <Container>
       <nav className={`flex ${isScrolled ? "scrolled" : ""}`}>
