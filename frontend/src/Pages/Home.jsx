@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovies, getGenres } from "../Store/store";
+import Slider from "../Components/Slider";
 
 const Container = styled.div`
   background-color: black;
@@ -62,11 +63,10 @@ const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { genresLoaded, movies } = useSelector((state) => state.netflix);
+  const { genres, genresLoaded, movies } = useSelector(
+    (state) => state.netflix
+  );
 
-  console.log(movies);
-
-  console.log(genresLoaded);
   useEffect(() => {
     dispatch(getGenres());
   }, []);
@@ -100,6 +100,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Slider movies={movies} />
     </Container>
   );
 };

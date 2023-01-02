@@ -31,7 +31,7 @@ const Player = () => {
     <Container>
       <div className="player">
         <div className="back">
-          <BsArrowLeft onClick={() => navigate(-1)} />
+          <BsArrowLeft onClick={() => navigate("/netflix")} />
         </div>
         <video
           src={vedio}
