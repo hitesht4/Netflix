@@ -46,6 +46,14 @@ router.put("/delete", async (req, res) => {
     const user = await UserModel.findOne({ email });
     if (user) {
       const { likedMovies } = user;
+
+      if (likedMovies.length === 1) {
+        await UserModel.updateOne(email, {
+          $unset: { likedMovies: [] },
+        });
+        return res.json({ msg: "Deleted Sucessfully", movies: [] });
+      }
+
       const movieIndex = likedMovies.findIndex(({ id }) => id === movieId);
       if (!movieIndex) {
         return res.status(400).send({ msg: "Movie Not Found" });

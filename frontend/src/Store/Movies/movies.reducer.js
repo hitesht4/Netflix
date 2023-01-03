@@ -24,7 +24,11 @@ export const MovieReducer = (state = initialState, { type, payload }) => {
       return { ...state, Liked: [...payload] };
     }
     case deleteLiked: {
-      return { ...state, Liked: [...payload] };
+      if (payload) {
+        return { ...state, Liked: [...payload] };
+      } else {
+        return { ...state, Liked: [] };
+      }
     }
     default: {
       return state;
