@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { firebaseAuth } from "../Utils/FirebaseConfig";
 import Background from "../Components/Background";
 import Header from "../Components/Header";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import styles from "./styles/login.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SignInFunction } from "../Store/Auth/auth.actions";
@@ -11,7 +11,7 @@ import { SignInFunction } from "../Store/Auth/auth.actions";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuth, email } = useSelector((state) => state.auth);
+  const { email } = useSelector((state) => state.auth);
   const [form, setForm] = useState({
     Email: "",
     Password: "",
@@ -35,15 +35,15 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (isAuth && email) {
+    if (email) {
       navigate("/netflix");
     }
-  }, [isAuth, email]);
+  }, [email]);
   return (
     <div className={styles.Container}>
       <Background />
       <div className={styles.content}>
-        <Header />
+        <Header head={"Signup"} route="/" />
         <div className={styles.formContainer}>
           <div className={styles.Form}>
             <div className="title">

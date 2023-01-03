@@ -15,12 +15,8 @@ const UserLiked = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (email && isAuth) {
-      dispatch(GetLikedMovies(email));
-    } else {
-      navigate("/login");
-    }
-  }, [email, isAuth, Liked]);
+    dispatch(GetLikedMovies(email));
+  }, []);
 
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);

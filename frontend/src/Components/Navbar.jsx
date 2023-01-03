@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import logo from "../Assets/logo.png";
 import styles from "./styles/navbar.module.css";
 import { FaPowerOff, FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { firebaseAuth } from "../Utils/FirebaseConfig";
 import { signOut } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { SignOutFunction } from "../Store/Auth/auth.actions";
+import { useEffect } from "react";
 
 const Links = [
   { name: "Home", route: "/" },
@@ -16,6 +19,21 @@ const Links = [
 const Navbar = ({ isScrolled }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
+  const { email, isAuth } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    console.log(email);
+    await signOut(firebaseAuth);
+    dispatch(SignOutFunction());
+  };
+
+  useEffect(() => {
+    if (!email) {
+      navigate("/login");
+    }
+  }, [email]);
 
   return (
     <div>
@@ -60,7 +78,7 @@ const Navbar = ({ isScrolled }) => {
             />
           </div>
           <button className={styles.Powerbutton}>
-            <FaPowerOff onClick={() => signOut(firebaseAuth)} />
+            <FaPowerOff onClick={handleLogout} />
           </button>
         </div>
       </nav>

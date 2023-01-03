@@ -1,7 +1,7 @@
+require("dotenv").config();
+const mongo_url = process.env.url;
 const { connect } = require("mongoose");
 
-const Connect = connect(
-  "mongodb+srv://hitesh123:hitesh123@cluster0.0rcyd.mongodb.net/netflix"
-);
+const Connect = connect(mongo_url);
 
 module.exports = Connect;

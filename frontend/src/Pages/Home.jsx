@@ -17,7 +17,6 @@ const Home = () => {
   const { Genres, getGenresLoaded, Movies } = useSelector(
     (state) => state.movies
   );
-  const { isAuth } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getGenres());

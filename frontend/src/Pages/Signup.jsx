@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Background from "../Components/Background";
 import Header from "../Components/Header";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "../Utils/FirebaseConfig";
 import styles from "./styles/signup.module.css";
+import { useSelector } from "react-redux";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -16,6 +14,7 @@ const Signup = () => {
     Email: "",
     Password: "",
   });
+  const { email } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     const inputName = e.target.name;
@@ -28,21 +27,23 @@ const Signup = () => {
     try {
       const { Email, Password } = form;
       await createUserWithEmailAndPassword(firebaseAuth, Email, Password);
+      navigate("/login");
     } catch (e) {
       console.log(e);
     }
   };
-  onAuthStateChanged(firebaseAuth, (currUser) => {
-    if (currUser) {
-      navigate("/login");
+
+  useEffect(() => {
+    if (email) {
+      navigate("/netflix");
     }
-  });
+  }, [email]);
 
   return (
     <div className={styles.Container}>
       <Background />
       <div className={styles.content}>
-        <Header />
+        <Header route={"/login"} head={"Login"} />
         <div className={styles.body}>
           <div className={styles.text}>
             <h1>Unlimited movies, TV shows and more.</h1>
