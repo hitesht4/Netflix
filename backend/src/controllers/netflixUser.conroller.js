@@ -40,4 +40,29 @@ router.post("/add", async (req, res) => {
   }
 });
 
+router.put("/delete", async (req, res) => {
+  try {
+    const { email, movieId } = req.body;
+    const user = await UserModel.findOne({ email });
+    if (user) {
+      const { likedMovies } = user;
+      const movieIndex = likedMovies.findIndex(({ id }) => id === movieId);
+      if (!movieIndex) {
+        return res.status(400).send({ msg: "Movie Not Found" });
+      }
+      likedMovies.splice(movieIndex, 1);
+
+      await UserModel.findByIdAndUpdate(
+        user._id,
+        {
+          likedMovies,
+        },
+        { new: true }
+      );
+      return res.json({ msg: "Deleted Successfully", movies: likedMovies });
+    }
+  } catch (error) {
+    return res.json({ msg: "Error deleting movie from the liked list" });
+  }
+});
 module.exports = router;

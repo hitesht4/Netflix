@@ -34,3 +34,17 @@ body::-webkit-scrollbar {
 .a-center {
   align-items: center;
 }
+
+.show_search {
+  border: 1px solid white;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.show_search > input {
+  width: 100% !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  padding: 0.3rem !important;
+}
+.show_search > input:focus {
+  outline: none;
+}

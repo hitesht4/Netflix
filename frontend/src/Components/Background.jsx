@@ -1,19 +1,12 @@
 import React from "react";
-import styled from "styled-components";
 import background from "../Assets/login.jpg";
-const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
-`;
-const Img = styled.img`
-  height: 100%;
-  width: 100%;
-`;
+import styles from "./styles/bg.module.css";
+
 const Background = () => {
   return (
-    <Container>
-      <Img src={background} alt="Background" />
-    </Container>
+    <div className={styles.Container}>
+      <img src={background} alt="Background" />
+    </div>
   );
 };
 

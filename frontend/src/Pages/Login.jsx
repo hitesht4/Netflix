@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { firebaseAuth } from "../Utils/FirebaseConfig";
 import Background from "../Components/Background";
 import Header from "../Components/Header";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import styles from "./styles/login.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { SignInFunction } from "../Store/Auth/auth.actions";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isAuth, email } = useSelector((state) => state.auth);
   const [form, setForm] = useState({
     Email: "",
     Password: "",
@@ -24,16 +28,17 @@ const Login = () => {
     try {
       const { Email, Password } = form;
       await signInWithEmailAndPassword(firebaseAuth, Email, Password);
+      dispatch(SignInFunction(Email));
     } catch (e) {
       console.log(e);
     }
   };
 
-  onAuthStateChanged(firebaseAuth, (currUser) => {
-    if (currUser) {
+  useEffect(() => {
+    if (isAuth && email) {
       navigate("/netflix");
     }
-  });
+  }, [isAuth, email]);
   return (
     <div className={styles.Container}>
       <Background />

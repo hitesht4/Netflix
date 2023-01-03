@@ -1,14 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
-import { fetchDataByGenre } from "../Store/store";
+import { useDispatch, useSelector } from "react-redux";
+import styles from "../Pages/styles/movies.module.css";
+import { fetchMoviesByGenre } from "../Store/Movies/movies.actions";
 
 const Select = ({ genres, type }) => {
   const dispatch = useDispatch();
+  const { Genres } = useSelector((state) => state.movies);
   return (
-    <SelectMenu
+    <select
+      className={styles.Select}
       onChange={(e) =>
-        dispatch(fetchDataByGenre({ genre: e.target.value, type }))
+        dispatch(fetchMoviesByGenre(type, e.target.value, Genres))
       }
     >
       {genres.map((genre) => (
@@ -16,16 +18,8 @@ const Select = ({ genres, type }) => {
           {genre.name}
         </option>
       ))}
-    </SelectMenu>
+    </select>
   );
 };
 
-const SelectMenu = styled.select`
-  margin-left: 5rem;
-  cursor: pointer;
-  font-size: 1.4rem;
-  background-color: rgba(0, 0, 0, 0.4);
-  color: white;
-  padding: 0.4rem 1rem;
-`;
 export default Select;

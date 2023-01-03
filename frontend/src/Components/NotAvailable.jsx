@@ -1,9 +1,10 @@
 import React from "react";
+import styles from "../Pages/styles/movies.module.css";
 
 const NotAvailable = () => {
   return (
-    <div className="not-available">
-      Movies are not available for selected Genre
+    <div className={styles.Container}>
+      <h1>Movies are not available at The Moment</h1>
     </div>
   );
 };

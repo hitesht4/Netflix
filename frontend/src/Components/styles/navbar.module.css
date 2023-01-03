@@ -1,0 +1,79 @@
+.nav {
+  display: flex;
+  top: 0;
+  height: 6.5rem;
+  width: 100%;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 2;
+  padding: 0 4rem;
+  align-items: center;
+  transition: 0.3s ease-in-out;
+}
+.left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.brand > img {
+  height: 4rem;
+}
+.Links {
+  display: flex;
+  list-style-type: none;
+  gap: 2rem;
+}
+.Links a {
+  text-decoration: none;
+  color: white;
+}
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.right > .Powerbutton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.Powerbutton:focus {
+  outline: none;
+}
+.Powerbutton > svg {
+  color: #f34242;
+  font-size: 1.2rem;
+}
+.search {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 0.2rem;
+  padding-left: 0.5rem;
+  /* border: 1px solid red; */
+}
+.search > button {
+  background-color: transparent;
+  border: none;
+}
+.search svg {
+  color: white;
+  font-size: 1.2rem;
+}
+.search > input {
+  width: 0px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease-in-out;
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+.search > input :focus {
+  outline: none;
+}
