@@ -64,16 +64,19 @@ export const fetchMoviesByGenre = (type, genre, Genres) => async (dispatch) => {
 export const GetLikedMovies = (email) => async (dispatch) => {
   const {
     data: { movies },
-  } = await axios.get(`http://localhost:5000/user/${email}`);
+  } = await axios.get(`https://netflix-bk77.vercel.app/user/${email}`);
 
   dispatch({ type: getLikedMovies, payload: movies });
 };
 
 export const RemoveLikedMovie = (email, movieId) => async (dispatch) => {
-  const { data } = await axios.put(`http://localhost:5000/user/delete`, {
-    email,
-    movieId,
-  });
+  const { data } = await axios.put(
+    `https://netflix-bk77.vercel.app/user/delete`,
+    {
+      email,
+      movieId,
+    }
+  );
   console.log(data.movies);
 
   dispatch({ type: deleteLiked, payload: data.movies });
