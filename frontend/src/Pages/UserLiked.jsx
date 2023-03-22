@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import Card from "../Components/Card";
 import Navbar from "../Components/Navbar";
 import NotAvailable from "../Components/NotAvailable";
@@ -9,9 +8,8 @@ import styles from "./styles/liked.module.css";
 
 const UserLiked = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { isAuth, email } = useSelector((state) => state.auth);
+  const { email } = useSelector((state) => state.auth);
   const { Liked } = useSelector((state) => state.movies);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {

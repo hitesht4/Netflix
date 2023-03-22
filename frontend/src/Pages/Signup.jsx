@@ -4,6 +4,7 @@ import Background from "../Components/Background";
 import Header from "../Components/Header";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "../Utils/FirebaseConfig";
+import { ToastContainer, toast } from "react-toastify";
 import styles from "./styles/signup.module.css";
 import { useSelector } from "react-redux";
 
@@ -14,6 +15,12 @@ const Signup = () => {
     Email: "",
     Password: "",
   });
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    draggable: true,
+    theme: "dark",
+  };
   const { email } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
@@ -29,7 +36,7 @@ const Signup = () => {
       await createUserWithEmailAndPassword(firebaseAuth, Email, Password);
       navigate("/login");
     } catch (e) {
-      console.log(e);
+      toast.error(e.message, toastOptions);
     }
   };
 
@@ -46,17 +53,21 @@ const Signup = () => {
         <Header route={"/login"} head={"Login"} />
         <div className={styles.body}>
           <div className={styles.text}>
-            <h1>Unlimited movies, TV shows and more.</h1>
-            <h4>Watch anywhere. Cancel anytime.</h4>
-            <h6>
-              Ready to watch? Enter your email to create or restart your
-              membership.
-            </h6>
+            <div className={styles.headings}>
+              <h1>Unlimited movies, TV shows and more.</h1>
+            </div>
+            <div className={styles.headings2}>
+              <h4>Watch anywhere. Cancel anytime.</h4>
+              <h6>
+                Ready to watch? Enter your email to create or restart your
+                membership.
+              </h6>
+            </div>
           </div>
 
           <div
             className={styles.form}
-            style={{ gridTemplateColumns: show ? "1fr 1fr" : "2fr 1fr" }}
+            style={{ gridTemplateColumns: show ? "50% 50%" : "66.67% 33.33%" }}
           >
             <input
               type="text"
@@ -78,10 +89,13 @@ const Signup = () => {
               <button onClick={() => setShow(true)}>Get Started {">"}</button>
             )}
           </div>
-          <button onClick={handleSubmit} className={styles.button}>
-            Signup
-          </button>
+          {show && (
+            <button onClick={handleSubmit} className={styles.button}>
+              Signup
+            </button>
+          )}
         </div>
+        <ToastContainer />
       </div>
     </div>
   );

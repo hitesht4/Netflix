@@ -8,7 +8,6 @@
 .Container > h1 {
   margin-left: 50px;
 }
-
 .slider {
   display: flex;
   width: max-content;
@@ -48,4 +47,16 @@
 }
 .slider_action_right svg {
   font-size: 2rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .Container {
+    padding: 1rem 0;
+  }
+  .Container > h1 {
+    margin-left: 30px;
+  }
+  .slider {
+    gap: 1rem;
+  }
 }

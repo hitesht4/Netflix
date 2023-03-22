@@ -3,10 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { firebaseAuth } from "../Utils/FirebaseConfig";
 import Background from "../Components/Background";
 import Header from "../Components/Header";
+import { ToastContainer, toast } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import styles from "./styles/login.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SignInFunction } from "../Store/Auth/auth.actions";
+
+const toastOptions = {
+  position: "bottom-right",
+  autoClose: 8000,
+  draggable: true,
+  theme: "dark",
+};
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,7 +38,7 @@ const Login = () => {
       await signInWithEmailAndPassword(firebaseAuth, Email, Password);
       dispatch(SignInFunction(Email));
     } catch (e) {
-      console.log(e);
+      toast.error(e.message, toastOptions);
     }
   };
 
@@ -69,6 +77,7 @@ const Login = () => {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </div>
   );

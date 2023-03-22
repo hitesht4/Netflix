@@ -1,28 +1,18 @@
-import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import styles from "./styles/movies.module.css";
 import Navbar from "../Components/Navbar";
 import NotAvailable from "../Components/NotAvailable";
 import Select from "../Components/Select";
 import Slider from "../Components/Slider";
-import { firebaseAuth } from "../Utils/FirebaseConfig.js";
 import { fetchAllMovies, getGenres } from "../Store/Movies/movies.actions";
 
 const Movies = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { Genres, getGenresLoaded, Movies } = useSelector(
     (state) => state.movies
   );
-
-  onAuthStateChanged(firebaseAuth, (currUser) => {
-    // if (currUser) {
-    //   navigate("/netflix");
-    // }
-  });
 
   useEffect(() => {
     dispatch(getGenres());

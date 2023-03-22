@@ -40,13 +40,20 @@
   gap: 2rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .container > input {
-  padding: 0.5rem 1rem;
-  width: 15rem;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  outline: none;
+  border: none;
+}
+.container > input:focus {
+  border: none;
+  outline: none;
 }
 .container > button {
-  padding: 0.5rem 1rem;
+  padding: 0.8rem 1rem;
   background-color: #e50914;
   border: none;
   cursor: pointer;
@@ -54,4 +61,10 @@
   border-radius: 0.2rem;
   font-weight: bolder;
   font-size: 1.05rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .Form {
+    width: 80vw;
+  }
 }

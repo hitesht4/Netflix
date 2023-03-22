@@ -2,10 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 4rem;
+  padding: 0 3rem;
 }
 .logo > img {
-  height: 5rem;
+  height: 4rem;
 }
 .btn {
   padding: 0.5rem 1rem;
@@ -16,4 +16,10 @@
   border-radius: 0.2rem;
   font-weight: bolder;
   font-size: 1.05rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .Container {
+    padding: 0 1rem;
+  }
 }

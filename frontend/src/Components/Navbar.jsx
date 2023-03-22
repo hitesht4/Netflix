@@ -19,12 +19,11 @@ const Links = [
 const Navbar = ({ isScrolled }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
-  const { email, isAuth } = useSelector((state) => state.auth);
+  const { email } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    console.log(email);
     await signOut(firebaseAuth);
     dispatch(SignOutFunction());
   };
