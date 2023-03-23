@@ -10,6 +10,14 @@ import { BiChevronDown } from "react-icons/bi";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RemoveLikedMovie } from "../Store/Movies/movies.actions";
+import { ToastContainer, toast } from "react-toastify";
+
+const toastOptions = {
+  position: "bottom-right",
+  autoClose: 8000,
+  draggable: true,
+  theme: "dark",
+};
 
 const Card = ({ movie, isLiked }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -20,79 +28,87 @@ const Card = ({ movie, isLiked }) => {
 
   const AddtoList = async () => {
     try {
-      let r = await axios.post("https://netflix-bk77.vercel.app/user/add", {
+      let r = await axios.post("http://localhost:5000/movie/add", {
         email,
-        data: movie,
+        ...movie,
       });
-      console.log(r.data);
+      console.log(r);
     } catch (e) {
       console.log(e);
     }
   };
 
   return (
-    <div
-      className={styles.Container}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <img src={`https://image.tmdb.org/t/p/w500${movie.image}`} alt="movie" />
-      {isHovered && (
-        <div className={styles.hover}>
-          <div className={styles.image_vedio_container}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.image}`}
-              alt="movie"
-              onClick={() => navigate("/player")}
-            />
-            <video
-              src={vedio}
-              autoPlay
-              loop
-              controls
-              muted
-              className={styles.vedio}
-              onClick={() => navigate("/player")}
-            ></video>
-          </div>
+    <>
+      <div
+        className={styles.Container}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <img
+          src={`https://image.tmdb.org/t/p/w500${movie.image}`}
+          alt="movie"
+        />
+        {isHovered && (
+          <div className={styles.hover}>
+            <div className={styles.image_vedio_container}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.image}`}
+                alt="movie"
+                onClick={() => navigate("/player")}
+              />
+              <video
+                src={vedio}
+                autoPlay
+                loop
+                controls
+                muted
+                className={styles.vedio}
+                onClick={() => navigate("/player")}
+              ></video>
+            </div>
 
-          <div className={styles.info}>
-            <h3 className="name">{movie.name}</h3>
+            <div className={styles.info}>
+              <h3 className={styles.name}>{movie.name}</h3>
 
-            <div className={styles.icons}>
-              <div className={styles.controls}>
-                <IoPlayCircleSharp
-                  title="play"
-                  onClick={() => navigate("/player")}
-                />
-                <RiThumbUpFill title="Like" />
-                <RiThumbDownFill title="Dislike" />
-                {isLiked ? (
-                  <BsCheck
-                    title="Remove From List"
-                    onClick={() => dispatch(RemoveLikedMovie(email, movie.id))}
+              <div className={styles.icons}>
+                <div className={styles.controls}>
+                  <IoPlayCircleSharp
+                    title="play"
+                    onClick={() => navigate("/player")}
                   />
-                ) : (
-                  <AiOutlinePlus title="Add To My List" onClick={AddtoList} />
-                )}
+                  <RiThumbUpFill title="Like" />
+                  <RiThumbDownFill title="Dislike" />
+                  {isLiked ? (
+                    <BsCheck
+                      title="Remove From List"
+                      onClick={() =>
+                        dispatch(RemoveLikedMovie(email, movie._id))
+                      }
+                    />
+                  ) : (
+                    <AiOutlinePlus title="Add To My List" onClick={AddtoList} />
+                  )}
+                </div>
+
+                <div className={styles.MoreInfo}>
+                  <BiChevronDown title="More Info" />
+                </div>
               </div>
 
-              <div className={styles.MoreInfo}>
-                <BiChevronDown title="More Info" />
+              <div className={styles.genres}>
+                <ul>
+                  {movie.genres.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </div>
-            </div>
-
-            <div className={styles.genres}>
-              <ul>
-                {movie.genres.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+      <ToastContainer />
+    </>
   );
 };
 

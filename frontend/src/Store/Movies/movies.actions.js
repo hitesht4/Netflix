@@ -7,6 +7,14 @@ import {
   getLikedMovies,
 } from "./movies.types";
 // --------------------------------------------------------------------------------
+//Fetching Genres
+export const getGenres = () => async (dispatch) => {
+  const { data } = await axios.get(
+    `${url}/genre/movie/list?api_key=${Api_key}`
+  );
+
+  dispatch({ type: getGen, payload: data.genres });
+};
 const fillArrayFromRawData = (array, moviesArray, genres) => {
   array.forEach((movie) => {
     const movieGenres = [];
@@ -34,14 +42,7 @@ const getRawData = async (api, genres, paging) => {
   return moviesArr;
 };
 // --------------------------------------------------------------------------------
-//Fetching Genres
-export const getGenres = () => async (dispatch) => {
-  const { data } = await axios.get(
-    `${url}/genre/movie/list?api_key=${Api_key}`
-  );
 
-  dispatch({ type: getGen, payload: data.genres });
-};
 //fetching Movies
 export const fetchAllMovies = (type, Genres) => async (dispatch) => {
   let data = await getRawData(
@@ -49,35 +50,37 @@ export const fetchAllMovies = (type, Genres) => async (dispatch) => {
     Genres,
     true
   );
+
   dispatch({ type: getAllMovies, payload: data });
 };
+
 //fetching movies by genre
 export const fetchMoviesByGenre = (type, genre, Genres) => async (dispatch) => {
   let data = await getRawData(
     `${url}/discover/${type}?api_key=${Api_key}&with_genres=${genre}`,
     Genres
   );
+  console.log(data);
   dispatch({ type: getAllMovies, payload: data });
 };
+
 //fetching liked Movies
-
 export const GetLikedMovies = (email) => async (dispatch) => {
-  const {
-    data: { movies },
-  } = await axios.get(`https://netflix-bk77.vercel.app/user/${email}`);
-
-  dispatch({ type: getLikedMovies, payload: movies });
+  const { data } = await axios.get(`http://localhost:5000/movie/${email}`);
+  dispatch({ type: getLikedMovies, payload: data.data });
 };
 
 export const RemoveLikedMovie = (email, movieId) => async (dispatch) => {
-  const { data } = await axios.put(
-    `https://netflix-bk77.vercel.app/user/delete`,
+  const r = await axios.delete(
+    `http://localhost:5000/movie/delete/${movieId}`,
     {
-      email,
-      movieId,
+      data: {
+        email: email,
+      },
     }
   );
-  console.log(data.movies);
 
-  dispatch({ type: deleteLiked, payload: data.movies });
+  console.log(r.data.status);
+
+  dispatch({ type: deleteLiked, payload: movieId });
 };

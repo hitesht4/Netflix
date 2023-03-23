@@ -51,12 +51,20 @@
 
 @media only screen and (max-width: 600px) {
   .Container {
-    padding: 1rem 0;
+    padding: 0.5rem 0;
   }
   .Container > h1 {
     margin-left: 30px;
+    font-size: 1rem;
   }
   .slider {
     gap: 1rem;
+    margin-left: 20px;
+  }
+  .slider_action_left {
+    width: 20px;
+  }
+  .slider_action_right {
+    width: 20px;
   }
 }

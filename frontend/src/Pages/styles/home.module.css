@@ -53,6 +53,9 @@
     position: absolute;
     bottom: 7rem;
   }
+  .hero > img {
+    height: 70vh;
+  }
   .container img {
     margin-left: 1rem;
     width: 80%;

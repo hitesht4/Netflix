@@ -13,3 +13,10 @@
   flex-wrap: wrap;
   gap: 1rem;
 }
+
+@media only screen and (max-width: 600px) {
+  .content > h1 {
+    margin-left: 1rem;
+    font-size: 1.5rem;
+  }
+}

@@ -24,11 +24,10 @@ export const MovieReducer = (state = initialState, { type, payload }) => {
       return { ...state, Liked: [...payload] };
     }
     case deleteLiked: {
-      if (payload) {
-        return { ...state, Liked: [...payload] };
-      } else {
-        return { ...state, Liked: [] };
-      }
+      let f = state.Liked.filter((item) => {
+        return item._id !== payload;
+      });
+      return { ...state, Liked: [...f] };
     }
     default: {
       return state;
