@@ -28,10 +28,13 @@ const Card = ({ movie, isLiked }) => {
 
   const AddtoList = async () => {
     try {
-      let r = await axios.post("http://localhost:5000/movie/add", {
-        email,
-        ...movie,
-      });
+      let r = await axios.post(
+        "https://netflix-bk77-hitesht4.vercel.app/movie/add",
+        {
+          email,
+          ...movie,
+        }
+      );
       console.log(r);
     } catch (e) {
       console.log(e);
